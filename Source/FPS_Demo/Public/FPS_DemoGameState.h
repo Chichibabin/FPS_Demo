@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
+#include "Blueprint/UserWidget.h"
 #include "FPS_DemoGameState.generated.h"
 
 class AShootingTarget;  // 前向声明
@@ -37,11 +38,37 @@ public:
 
     // 计时器句柄
     FTimerHandle GameTimerHandle;
+    UFUNCTION(BlueprintCallable, Category = "Gameplay")
+    float GetRemainingTime() const;
+
+    // 重新开始游戏
+    UFUNCTION(BlueprintCallable, Category = "Gameplay")
+    void RestartGame();
 
     // 玩家分数映射
     UPROPERTY(VisibleAnywhere, Category = "Score")
     TMap<int, int> PlayerScores;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
+    int TotalScore;
+
     // 游戏结束处理
     void HandleGameEnd();
+
+    // 游戏进行中UI
+    UPROPERTY(EditAnywhere, Category = "UI")
+    TSubclassOf<UUserWidget> GameHUDWidgetClass;
+
+    UPROPERTY()
+    UUserWidget* GameHUDWidgetInstance;
+
+    // 游戏结束UI
+    UPROPERTY(EditAnywhere, Category = "UI")
+    TSubclassOf<UUserWidget> GameOverWidgetClass;
+
+    UPROPERTY()
+    UUserWidget* GameOverWidgetInstance;
+
+    
+
 };
