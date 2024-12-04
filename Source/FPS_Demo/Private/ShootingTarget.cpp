@@ -22,6 +22,7 @@ AShootingTarget::AShootingTarget()
 void AShootingTarget::BeginPlay()
 {
     Super::BeginPlay();
+    GameState = GetWorld()->GetGameState<AFPS_DemoGameState>();
 }
 
 void AShootingTarget::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -37,18 +38,24 @@ void AShootingTarget::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActo
         }
 
         // 处理积分逻辑
-        if (bIsImportantTarget)
+         if (GameState)
         {
-            // 增加双倍积分
-            UE_LOG(LogTemp, Warning, TEXT("Hit an important target! Double points awarded."));
-            // 添加双倍积分逻辑
+            // 更新分数
+            GameState->UpdatePlayerScore(0, ScoreValue, bIsImportantTarget);
         }
-        else
-        {
-            // 增加普通积分
-            UE_LOG(LogTemp, Warning, TEXT("Hit a regular target! Points awarded."));
-            // 添加普通积分逻辑
-        }
+        //if (bIsImportantTarget)
+        //{
+        //    // 增加双倍积分
+        //    UE_LOG(LogTemp, Warning, TEXT("Hit an important target! Double points awarded."));
+        //    // 添加双倍积分逻辑
+        //}
+        //else
+        //{
+        //    // 增加普通积分
+        //    UE_LOG(LogTemp, Warning, TEXT("Hit a regular target! Points awarded."));
+        //    // 添加普通积分逻辑
+        //    
+        //}
 
 
         if (!bHasBeenHitOnce)

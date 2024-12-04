@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "../FPS_DemoProjectile.h"  // 包含子弹类的头文件
+#include "FPS_DemoGameState.h"
 #include "ShootingTarget.generated.h"
 
 
@@ -31,9 +32,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
     float ScaleMultiplier;  
 
+    // 游戏状态
+    AFPS_DemoGameState* GameState;
+
 protected:
     // 游戏开始时调用
     virtual void BeginPlay() override;
+
+
 
 public:
     // 子弹命中时调用的函数
