@@ -14,6 +14,3 @@ class AFPS_DemoGameMode : public AGameModeBase
 public:
 	AFPS_DemoGameMode();
 };
-
-
-
