@@ -3,9 +3,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "../FPS_DemoProjectile.h"  // 包含子弹类的头文件
-#include "FPS_DemoGameState.h"
 #include "ShootingTarget.generated.h"
 
+class AFPS_DemoGameState;  // 前向声明
 
 UCLASS()
 class FPS_DEMO_API AShootingTarget : public AActor
@@ -31,6 +31,10 @@ public:
     // 缩放倍数
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
     float ScaleMultiplier;  
+
+    // 材质属性
+    UPROPERTY(EditAnywhere, Category = "Materials")
+    UMaterialInterface* ImportantMaterial;
 
     // 游戏状态
     AFPS_DemoGameState* GameState;

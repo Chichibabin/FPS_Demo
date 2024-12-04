@@ -1,3 +1,4 @@
+#include "FPS_DemoGameState.h"
 #include "ShootingTarget.h"
 #include "Components/StaticMeshComponent.h"
 
@@ -22,7 +23,14 @@ AShootingTarget::AShootingTarget()
 void AShootingTarget::BeginPlay()
 {
     Super::BeginPlay();
+
+    // 获取游戏状态并添加当前目标到数组中
     GameState = GetWorld()->GetGameState<AFPS_DemoGameState>();
+    if (GameState)
+    {
+        GameState->Targets.Add(this);
+    }
+
 }
 
 void AShootingTarget::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)

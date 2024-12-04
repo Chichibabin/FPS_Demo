@@ -4,6 +4,8 @@
 #include "GameFramework/GameStateBase.h"
 #include "FPS_DemoGameState.generated.h"
 
+class AShootingTarget;  // 前向声明
+
 UCLASS()
 class FPS_DEMO_API AFPS_DemoGameState : public AGameStateBase
 {
@@ -17,7 +19,11 @@ public:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-    // 设置重要目标的函数
+    // 存储所有目标方块的数组
+    UPROPERTY(VisibleAnywhere, Category = "Gameplay")
+    TArray<AShootingTarget*> Targets;
+
+    // 设置重要目标的函数，现在实现具体逻辑
     void SetImportantTargets();
 
     // 更新玩家分数的函数
@@ -26,6 +32,8 @@ public:
     // 游戏时间
     UPROPERTY(EditAnywhere, Category = "Gameplay")
     float GameDuration;  // 游戏时间限制，单位为秒
+    UPROPERTY(EditAnywhere, Category = "Gameplay")
+    int NumImportantTargets;  // 重要目标数量
 
     // 计时器句柄
     FTimerHandle GameTimerHandle;
